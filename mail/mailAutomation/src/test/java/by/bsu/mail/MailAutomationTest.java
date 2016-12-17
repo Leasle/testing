@@ -1,14 +1,12 @@
-package com.epam.ta;
+package by.bsu.mail;
 
+import by.bsu.mail.steps.Steps;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.epam.ta.steps.Steps;
-
-public class GitHubAutomationTest
-{
+public class MailAutomationTest {
 	private Steps steps;
 	private final String USERNAME = "testhabr";
 	private final String PASSWORD = "123abc456";

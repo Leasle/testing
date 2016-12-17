@@ -1,9 +1,8 @@
-package com.epam.ta.pages;
+package by.bsu.mail.pages;
 
 import org.openqa.selenium.WebDriver;
 
-public abstract class AbstractPage
-{
+public abstract class AbstractPage {
 	protected WebDriver driver;
 
 	public abstract void openPage();

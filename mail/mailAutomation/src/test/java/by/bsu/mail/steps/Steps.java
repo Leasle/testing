@@ -1,18 +1,13 @@
-package com.epam.ta.steps;
+package by.bsu.mail.steps;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import com.epam.ta.driver.DriverSingleton;
-import com.epam.ta.pages.*;
+import by.bsu.mail.pages.LoginPage;
+import by.bsu.mail.pages.MessagePage;
+import by.bsu.mail.driver.DriverSingleton;
+import by.bsu.mail.pages.ThemePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import org.openqa.selenium.support.FindBy;
 
 public class Steps {
 	private WebDriver driver;
