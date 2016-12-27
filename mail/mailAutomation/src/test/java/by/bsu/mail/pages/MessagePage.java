@@ -35,6 +35,14 @@ public class MessagePage extends AbstractPage {
     @FindBy(className = "message-sent__title")
     private WebElement successTitle;
 
+    @FindBy(xpath = "//a[@id=\"PH_projectsMenu_button\"]")
+    private WebElement allProjectsButton;
+
+//    @FindBy(xpath = "/html/body/div[2]/div/div[5]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[2]/span/span/span[2]/a[4]")
+//    @FindBy(xpath = "//a[@data-title='Облако']")
+    @FindBy(xpath = "/html/body/div[2]/div/div[5]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[5]/div[2]/div/div[1]/div[2]/div/span/span[2]/span[14]/a")
+    private WebElement cloudButton;
+
     private WebDriver driver;
 
     public MessagePage(WebDriver driver) {
@@ -59,6 +67,17 @@ public class MessagePage extends AbstractPage {
         whomElement.sendKeys(whom);
         sendButton.click();
         confirmButton.click();
+    }
+
+    public void chooseCloudLink() {
+        WebDriverWait wait = new WebDriverWait(driver, 3000);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("b-toolbar__btn js-shortcut")));
+
+//        allProjectsButton.click();
+
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@data-title='Облако']")));
+
+        cloudButton.click();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package by.bsu.mail.steps;
 
+import by.bsu.mail.pages.CloudPage;
 import by.bsu.mail.pages.LoginPage;
 import by.bsu.mail.pages.MessagePage;
 import by.bsu.mail.driver.DriverSingleton;
@@ -50,5 +51,23 @@ public class Steps {
 		ThemePage themePage = new ThemePage(driver);
 
 		return themePage.changeTheme();
+	}
+
+	public boolean createRepository(String nameFolder) {
+		MessagePage messagePage = new MessagePage(driver);
+		CloudPage cloudPage = new CloudPage(driver);
+
+		messagePage.chooseCloudLink();
+
+		cloudPage.createNewFolder(nameFolder);
+		return cloudPage.isFolderCreated();
+	}
+
+	public boolean removeFile() {
+		MessagePage messagePage = new MessagePage(driver);
+		CloudPage cloudPage = new CloudPage(driver);
+
+		messagePage.chooseCloudLink();
+		return cloudPage.deleteFile();
 	}
 }

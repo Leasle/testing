@@ -11,6 +11,7 @@ public class MailAutomationTest {
 	private final String USERNAME = "testhabr";
 	private final String PASSWORD = "123abc456";
 	private final String EMAIL = "testhabr@mail.ru";
+	private final String NAME_FOLDER = "TestFolder";
 
 	@BeforeMethod(description = "Init browser")
 	public void setUp() {
@@ -37,6 +38,20 @@ public class MailAutomationTest {
 		steps.loginMail(USERNAME, PASSWORD);
 
 		Assert.assertTrue(steps.changeTheme());
+	}
+
+	@Test
+	public void createFolder() {
+		steps.loginMail(USERNAME, PASSWORD);
+
+		Assert.assertTrue(steps.createRepository(NAME_FOLDER));
+	}
+
+	@Test
+	public void removeFile() {
+		steps.loginMail(USERNAME, PASSWORD);
+
+		Assert.assertTrue(steps.removeFile());
 	}
 
 	@AfterMethod(description = "Stop Browser")

@@ -20,7 +20,7 @@ public class LoginPage extends AbstractPage {
 	@FindBy(id = "mailbox__auth__button")
 	private WebElement buttonSubmit;
 
-	@FindBy(xpath = "/html/body/div[2]/div/div[5]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[4]/table/tbody/tr/td[2]/div[1]/table/tbody/tr/td[1]/div/div/div/span/i[3]")
+	@FindBy(xpath = "/html/body/div[2]/div/div[5]/div/div/div/div/div/div/div/div/div/div/div/div/div/div[3]/table/tbody/tr/td[2]/div[1]/table/tbody/tr/td[1]/div/div/div/span/i[3]")
 	private WebElement linkLoggedInUser;
 
 	public WebElement getInputLogin() {
