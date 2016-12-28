@@ -63,11 +63,12 @@ public class Steps {
 		return cloudPage.isFolderCreated();
 	}
 
-	public boolean removeFile() {
+	public boolean removeFile(String nameFolder) {
 		MessagePage messagePage = new MessagePage(driver);
 		CloudPage cloudPage = new CloudPage(driver);
 
 		messagePage.chooseCloudLink();
+		cloudPage.createNewFolder(nameFolder);
 		return cloudPage.deleteFile();
 	}
 }

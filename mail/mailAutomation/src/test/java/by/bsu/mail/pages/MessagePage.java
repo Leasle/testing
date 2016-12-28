@@ -78,6 +78,8 @@ public class MessagePage extends AbstractPage {
 //        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@data-title='Облако']")));
 
         cloudButton.click();
+
+        driver.navigate().to(cloudButton.getAttribute("href"));
     }
 
     @Override

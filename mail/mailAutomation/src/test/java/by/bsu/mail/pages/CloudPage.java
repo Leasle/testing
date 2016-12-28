@@ -10,6 +10,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Sergey on 12/27/2016.
  */
@@ -18,32 +21,29 @@ public class CloudPage extends AbstractPage {
     private final Logger logger = LogManager.getRootLogger();
     private final String BASE_URL = "https://mail.ru/";
 
-//    @FindBy(xpath = "//*[@title=\"Создать\"]")
-//    @FindBy(xpath = "/html/body/div[2]/div[1]/div[5]/div[1]/div/div[1]/div/div/div/div/div[2]/div/div[2]")
-    @FindBy(className = "b-dropdown__ctrl")
+    @FindBy(xpath = "//div[span[text()='Создать']]")
     private WebElement createButton;
 
-//    @FindBy(xpath = "//a[@data-name='folder']")
-//    @FindBy(xpath = "/html/body/div[2]/div[1]/div[5]/div[1]/div/div[1]/div/div/div/div/div[2]/div/div[2]/a[1]")
-    @FindBy(className = "b-dropdown__list__item")
+    @FindBy(xpath = "//a[span[text()='Папку']]")
     private WebElement createFolderButton;
 
-//    @FindBy(xpath = "//input[@class='layer__input']")
-    @FindBy(xpath = "/html/body/div[2]/div[1]/div[5]/div[5]/div[1]/div/div[1]/div/div/div/div/div/form/div[1]/input")
-//    @FindBy(className = "layer__input")
+    @FindBy(className = "layer__input")
     private WebElement inputNameFolder;
 
-    @FindBy(xpath = "//button[@class='btn btn_main btn_neighboring']")
-//    @FindBy(xpath = "/html/body/div[2]/div[1]/div[5]/div[5]/div[1]/div/div[1]/div/div/div/div/div/form/div[3]/div[1]/button[1]")
+    @FindBy(xpath = "//button[span[text()='Добавить']]")
     private WebElement addFolderButton;
 
-//    @FindBy(xpath = "//div[@data-id='/TestFolder']")
-//    private WebElement createdFolder;
+    @FindBy(xpath = "//div[span[text()='TestFolder']]")
+    private WebElement fileLink;
 
-//    @FindBy(xpath = "/html/body/div[2]/div[1]/div[5]/div[1]/div/div[1]/div/div/div/div/div[2]/div/div[3]/div/div/div/button")
-//    @FindBy(className = "btn btn_layer_close")
-//    private WebElement closeButton;
+    @FindBy(xpath = "//div[span[text()='Удалить']]")
+    private WebElement removeButton;
 
+    @FindBy(xpath = "//button[span[text()='Удалить']]")
+    private WebElement removeBtnOnRemoveLayer;
+
+    @FindBy(className = "layer_trashbin-tutorial")
+    private WebElement divAfterRemove;
 
     public CloudPage(WebDriver driver) {
         super(driver);
@@ -58,46 +58,34 @@ public class CloudPage extends AbstractPage {
 
     public void createNewFolder(String folderName) {
         WebDriverWait wait = new WebDriverWait(driver, 3000);
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("btn btn_layer_close")));
 
-//        closeButton.click();
+        /* Проверяю, что я на нужной странице */
+        WebElement logo = driver.findElement(By.className("pm-logo__link__pic"));
+        System.out.println(logo.getAttribute("alt").equals("Облако@Mail.Ru"));
+        System.out.println(logo.getAttribute("alt"));
 
         createButton.click();
-
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("b-dropdown__list")));
-
-        createFolderButton = driver.findElements(By.className("b-dropdown__list__item")).get(1);
-
         createFolderButton.click();
-
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("layer__input")));
-
-        inputNameFolder = driver.findElement(By.className("layer__input"));
-
         inputNameFolder.sendKeys(folderName);
         addFolderButton.click();
-
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@data-id='/TestFolder']")));
     }
 
-//    public String getCurrentRepositoryName() {
-//        return linkCurrentRepository.getText();
-//    }
-
     public boolean deleteFile() {
-        WebElement firstElement = driver.findElement(By.className("b-collection__item b-collection__item_datalist b-collection__item_datalist-mode-thumb b-collection__item_axis-y b-collection__item_first"));
+        WebDriverWait wait = new WebDriverWait(driver, 3000);
 
-        WebElement selectElement = firstElement.findElement(By.className("js-checkbox b-checkbox js-item-checkbox b-checkbox_in-thumb"));
+        if (!isFolderCreated()) return false;
 
-        selectElement.click();
+        fileLink.click();
 
-        WebElement removeButton = driver.findElement(By.className("b-toolbar__btn b-toolbar__btn_remove"));
+        /* Ждём пока загрузится файл */
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TestFolder']")));
+
         removeButton.click();
 
-        WebElement removeBtn = driver.findElement(By.xpath("/html/body/div[2]/div[1]/div[5]/div[5]/div[12]/div/div[1]/div/div/div/div/div/div[3]/div[1]/button[1]"));
-        removeBtn.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("layer_remove")));
 
-        WebElement divAfterRemove = driver.findElement(By.className("layer_trashbin-tutorial"));
+        removeBtnOnRemoveLayer.click();
+
         return divAfterRemove.isDisplayed();
     }
 

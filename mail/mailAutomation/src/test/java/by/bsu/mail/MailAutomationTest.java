@@ -50,8 +50,9 @@ public class MailAutomationTest {
 	@Test
 	public void removeFile() {
 		steps.loginMail(USERNAME, PASSWORD);
+//		steps.createRepository(NAME_FOLDER);
 
-		Assert.assertTrue(steps.removeFile());
+		Assert.assertTrue(steps.removeFile(NAME_FOLDER));
 	}
 
 	@AfterMethod(description = "Stop Browser")
